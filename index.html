@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infineon Team Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ifx-teal: #0A8276;
+    --ifx-teal-dark: #076B61;
+    --ifx-teal-deep: #054A43;
+    --ifx-teal-bright: #14B8A6;
+    --ifx-teal-soft: #E6F3F1;
+    --ifx-ink: #0A0F1A;
+    --ifx-text: #1F2937;
+    --ifx-text-sub: #6B7280;
+    --ifx-border: #E5E7EB;
+    --ifx-card: #FFFFFF;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: transparent;
+    font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ifx-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .widget {
+    width: 100%;
+    max-width: 520px;
+    background: var(--ifx-card);
+    border-radius: 18px;
+    border: 1px solid var(--ifx-border);
+    box-shadow: 0 12px 40px rgba(10, 15, 26, 0.06), 0 1px 4px rgba(10, 15, 26, 0.03);
+    overflow: hidden;
+    padding: 14px;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, var(--ifx-teal) 0%, var(--ifx-teal-dark) 65%, var(--ifx-teal-deep) 100%);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: "";
+    position: absolute;
+    top: -60%;
+    right: -10%;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1;
+    position: relative;
+  }
+
+  .header-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 1.4px;
+    line-height: 1.1;
+  }
+
+  .header-subtitle {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12.5px;
+    font-weight: 400;
+    margin-top: 2px;
+  }
+
+  .header-right {
+    z-index: 1;
+    position: relative;
+    color: rgba(255,255,255,0.85);
+    font-size: 12.5px;
+  }
+
+  /* CONTENT */
+  .content {
+    padding: 12px 0 4px;
+  }
+
+  .section {
+    background: var(--ifx-card);
+    border: 1px solid var(--ifx-border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .section:last-child { margin-bottom: 0; }
+
+  .section.accent::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--ifx-teal);
+  }
+
+  .section h3 {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ifx-ink);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section h3 .accent-icon {
+    color: var(--ifx-teal);
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .section h3 .count {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ifx-teal);
+    background: var(--ifx-teal-soft);
+    padding: 2px 9px;
+    border-radius: 6px;
+  }
+
+  /* OOO list */
+  .ooo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--ifx-border);
+    font-size: 13.5px;
+  }
+  .ooo-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .ooo-row:first-of-type { padding-top: 2px; }
+
+  .ooo-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #CBD5E1, #94A3B8);
+    color: #fff;
+    font-weight: 700;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ooo-name { font-weight: 600; color: var(--ifx-ink); }
+  .ooo-meta { color: var(--ifx-text-sub); font-size: 12.5px; margin-left: auto; }
+
+  /* Open roles */
+  .role {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--ifx-border);
+    font-size: 13.5px;
+  }
+  .role:last-of-type { border-bottom: none; }
+  .role:first-of-type { padding-top: 2px; }
+
+  .role-title { font-weight: 700; color: var(--ifx-ink); margin-bottom: 2px; }
+  .role-meta { color: var(--ifx-text-sub); font-size: 12.5px; }
+
+  .ghost-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border: 1.5px solid var(--ifx-teal);
+    color: var(--ifx-teal);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 7px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 12px;
+  }
+
+  .ghost-btn:hover {
+    background: var(--ifx-teal);
+    color: #fff;
+  }
+
+  /* Goal progress */
+  .goal-row {
+    margin-bottom: 12px;
+  }
+  .goal-row:last-child { margin-bottom: 0; }
+
+  .goal-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--ifx-text-sub);
+    margin-bottom: 5px;
+  }
+
+  .goal-label .goal-value {
+    color: var(--ifx-ink);
+    font-weight: 700;
+  }
+
+  .progress-bar {
+    height: 7px;
+    background: #E5E7EB;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ifx-teal-bright), var(--ifx-teal));
+    border-radius: 20px;
+    transition: width 0.6s ease;
+  }
+
+  .progress-fill.amber {
+    background: linear-gradient(90deg, #FBBF24, #F59E0B);
+  }
+
+  @media (max-width: 420px) {
+    .header-subtitle { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="widget">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="header-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div>
+        <div class="header-title">TEAM PULSE</div>
+        <div class="header-subtitle">This week at a glance</div>
+      </div>
+    </div>
+    <div class="header-right">
+      Week 47
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- OOO -->
+    <div class="section accent">
+      <h3>
+        <span class="accent-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+          </svg>
+        </span>
+        Out of Office
+        <span class="count">3</span>
+      </h3>
+      <div class="ooo-row">
+        <div class="ooo-avatar">AH</div>
+        <span class="ooo-name">Anna Hofer</span>
+        <span class="ooo-meta">Mon – Wed</span>
+      </div>
+      <div class="ooo-row">
+        <div class="ooo-avatar">TN</div>
+        <span class="ooo-name">Thomas Nguyen</span>
+        <span class="ooo-meta">Thu – Fri</span>
+      </div>
+      <div class="ooo-row">
+        <div class="ooo-avatar">LS</div>
+        <span class="ooo-name">Lena Sørensen</span>
+        <span class="ooo-meta">All week</span>
+      </div>
+    </div>
+
+    <!-- Open roles -->
+    <div class="section">
+      <h3>
+        <span class="accent-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </span>
+        Open Roles
+        <span class="count">2</span>
+      </h3>
+      <div class="role">
+        <div class="role-title">Sr. IC Designer</div>
+        <div class="role-meta">8 candidates · 3 in final round</div>
+      </div>
+      <div class="role">
+        <div class="role-title">Test Engineer · Villach</div>
+        <div class="role-meta">Req opened 6 days ago</div>
+      </div>
+      <button class="ghost-btn">
+        Open in SF Recruiting
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+
+    <!-- Goals -->
+    <div class="section accent">
+      <h3>
+        <span class="accent-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="6"/>
+            <circle cx="12" cy="12" r="2"/>
+          </svg>
+        </span>
+        Q4 Progress
+      </h3>
+
+      <div class="goal-row">
+        <div class="goal-label">
+          <span>Team OKRs on track</span>
+          <span class="goal-value">7 / 9</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 78%;"></div>
+        </div>
+      </div>
+
+      <div class="goal-row">
+        <div class="goal-label">
+          <span>Mid-year check-ins done</span>
+          <span class="goal-value">24 / 28</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill amber" style="width: 85%;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
